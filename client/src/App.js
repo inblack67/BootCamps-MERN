@@ -21,6 +21,9 @@ import Login from './components/smart/auth/Login';
 import Dashboard from './components/smart/dashboard/Dashboard'
 import PrivateRoute from './routing/PrivateRoute'
 import { loadUser } from './actions/auth'
+import UpdateDetails from './components/smart/auth/UpdateDetails';
+import UpdatePassword from './components/smart/auth/UpdatePassword';
+import ResetPassword from './components/smart/auth/ResetPassword';
 
 function App() {
 
@@ -36,6 +39,9 @@ function App() {
         <Navbar />
         <Switch>
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
+          <PrivateRoute exact path='/update-details' component={UpdateDetails}/>
+          <PrivateRoute exact path='/update-password' component={UpdatePassword}/>
+          <Route exact path='/reset-password' component={ResetPassword}/>
           <Route exact path='/' component={Home}/>
           <Route exact path='/bootcamps' component={Bootcamps}/>
           <Route exact path='/bootcamps/:id' component={SingleBootcamp}/>

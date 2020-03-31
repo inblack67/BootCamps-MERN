@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import Preloader from '../../dumb/Preloader'
 
-const Dashboard = ({ authState, authState: { loading, user } }) => {
+const Dashboard = ({ authState: { loading, user } }) => {
 
     while(loading || !user){
         return <Preloader />
@@ -13,9 +13,24 @@ const Dashboard = ({ authState, authState: { loading, user } }) => {
     const { name, email, _id, role } = user
 
     return (
-        <div>
-            <h1>Welcome { name } </h1>
+        
+        <Fragment>
+        <div className='container center'>
+            <div className="card">
+                <div className="card-content">
+                    <span className="card-title">{name}</span>
+                    <span>
+                        <i className="material-icons prefix">email</i>
+                        <p>{email}</p>
+                    </span>
+                    <p>{role}</p>
+                <div className="card-action">
+                    <Link to='/update-details'>Manage Account</Link>
+                </div>
+                </div>
+            </div>
         </div>
+        </Fragment>
     )
 }
 

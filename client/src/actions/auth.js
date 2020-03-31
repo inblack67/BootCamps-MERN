@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types'
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, UPDATE_ACCOUNT, UPDATE_ERROR } from './types'
 import axios from 'axios'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import setAuthToken from '../setAuthCookie';
@@ -10,8 +10,6 @@ export const registerUser = (formData) => async dispatch => {
             'Content-Type': 'application/json'
         }
     }
-    
-
 
     try {
         const res = await axios.post('/api/v1/auth/register', formData, config)
@@ -21,8 +19,6 @@ export const registerUser = (formData) => async dispatch => {
             type: REGISTER_SUCCESS,
             payload: res.data.token
         })
-
-
 
         if(res.data.success){
             M.toast({
@@ -34,11 +30,12 @@ export const registerUser = (formData) => async dispatch => {
 
     } catch (err) {
 
-
-        dispatch({
-            type: REGISTER_FAIL,
-            payload: err.response.data.error
-        })
+        if(err.response !== undefined){
+            dispatch({
+                type: REGISTER_FAIL,
+                payload: err.response.data.error
+            })
+        }
 
     }
 
@@ -75,8 +72,39 @@ export const login = (formData) => async dispatch => {
         }
 
     }
-
 }
+
+export const updateDetails = (formData) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+
+        const res = await axios.put('/api/v1/auth/updatedetails', formData, config)
+        console.log(res.data);
+
+        dispatch({
+            type: UPDATE_ACCOUNT,
+            payload: res.data.data
+        })
+
+    } catch (err) {
+
+        if(err.response !== undefined){
+            dispatch({
+                type: UPDATE_ERROR,
+                payload: err.response.data.error
+            })
+        }
+
+    }
+}
+
+
 
 export const logout = () => async (dispatch) => {
     try {
@@ -91,6 +119,7 @@ export const logout = () => async (dispatch) => {
     }
 }
 
+// GET Logged In User
 export const loadUser = () => async (dispatch, getState) => {
 
     const token = getState().AuthState.token
@@ -104,6 +133,6 @@ export const loadUser = () => async (dispatch, getState) => {
             payload: res.data.data
         })
     } catch (err) {
-
+        console.error(err);
     }
 }

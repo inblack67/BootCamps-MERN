@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { login } from '../../../actions/auth'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 const Login = ({ authState: { isAuthenticated }, login }) => {
 
@@ -51,6 +51,7 @@ const Login = ({ authState: { isAuthenticated }, login }) => {
                 <br/>
                 <div className="input-field">
                     <input type="submit" value="Login" className='btn blue darken-2'/>
+                    <Link to='/reset-password' className='btn red secondary-content'>Reset Password</Link>
                 </div>
                 <br/>
             </form>

@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../actions/types'
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, UPDATE_ACCOUNT, UPDATE_ERROR } from '../actions/types'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import setAuthCookie from '../setAuthCookie'
 
@@ -23,10 +23,12 @@ export default (state=initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
-                loading: false
+                token: document.cookie.split('=')[1],
+                loading: false,
             }
 
         case USER_LOADED:
+        case UPDATE_ACCOUNT:
             return {
                 ...state,
                 user: payload,
@@ -38,7 +40,9 @@ export default (state=initialState, action) => {
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case LOGOUT:
+        case UPDATE_ERROR:
             setAuthCookie(null)
+            M.toast({ html: payload })
 
             return {
                 ...state,
