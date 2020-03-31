@@ -9,7 +9,7 @@ const BootcampItem = ({ bootcamp: { name, _id, averageRating, description, photo
         <div className="col m6">
             <div className="card">
                 <div className="card-image waves-effect waves-block waves-light" >
-                    <img className="activator responsive-img" src={`/uploads/${photo}`} />
+                    <img className="activator responsive-img" alt='' src={`/uploads/${photo}`} />
                 </div>
             <div className="card-content">
                 <span className="card-title activator grey-text text-darken-4">{name}<i className="material-icons right">more_vert</i></span>

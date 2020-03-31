@@ -17,7 +17,7 @@ const errorHandler = (err,req,res,next) => {
   // mongoose duplicate key
   if(err.code === 11000)
   {
-    const message = `Bootcamp already exists`;
+    const message = `Resource already exists`;
     error = new ErrorResponse(message, 400);
   }
 

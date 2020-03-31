@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { getAllBootCamps } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
 import BootcampItem from './BootcampItem'
-import AutoInit from '../../AutoInit'
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) => {
 
@@ -13,6 +13,10 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
         // eslint-disable-next-line
     },[])
 
+    useEffect(() => {
+        M.AutoInit()
+    })
+
     if(loading || !bootcamps)
     {
         return <Preloader />
@@ -20,7 +24,6 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
 
     return (
         <div className='container'>
-            <AutoInit />
             <div className="row">
             <div className="col m6">
                 <div className="container">

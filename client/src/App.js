@@ -15,26 +15,37 @@ import store from './store'
 import Bootcamps from './components/smart/bootcamps/Bootcamps';
 import SingleBootcamp from './components/smart/bootcamps/SingleBootcamp';
 
+import './App.css';
+import Register from './components/smart/auth/Register';
+import Login from './components/smart/auth/Login';
+import Dashboard from './components/smart/dashboard/Dashboard'
+import PrivateRoute from './routing/PrivateRoute'
+import { loadUser } from './actions/auth'
+
 function App() {
 
   useEffect(() => {
     M.AutoInit();
+    store.dispatch(loadUser());
   })
 
   return (
     <Provider store={store}>
     <Router>
-      <Fragment>
+      <div className='App'>
         <Navbar />
         <Switch>
+          <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <Route exact path='/' component={Home}/>
           <Route exact path='/bootcamps' component={Bootcamps}/>
           <Route exact path='/bootcamps/:id' component={SingleBootcamp}/>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/register' component={Register}/>
           <Route exact path='/about' component={About}/>
           <Route component={NotFound}/>
         </Switch>
         <Footer />
-      </Fragment>
+      </div>
     </Router>
     </Provider>
   );

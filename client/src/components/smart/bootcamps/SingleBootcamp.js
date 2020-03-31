@@ -1,9 +1,9 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSingleBootcamp } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
-import AutoInit from '../../AutoInit'
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, loading } }) => {
 
@@ -11,6 +11,10 @@ const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, l
         getSingleBootcamp(match.params.id)
         // eslint-disable-next-line
     },[])
+
+    useEffect(() => {
+        M.AutoInit()
+    })
 
     if(loading || !bootcamp){
         return <Preloader />
@@ -20,7 +24,6 @@ const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, l
 
     return (
         <div className="container">
-            <AutoInit />
             
             <h3>{name}</h3>
 

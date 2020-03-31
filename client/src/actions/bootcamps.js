@@ -5,7 +5,6 @@ export const getAllBootCamps = () => async dispatch => {
 
     try {
         const res = await axios('/api/v1/bootcamps')
-        console.log(res.data.data);
 
         dispatch({
             type: GET_BOOTCAMPS,
@@ -25,7 +24,6 @@ export const getSingleBootcamp = (id) => async dispatch => {
 
     try {
         const res = await axios(`/api/v1/bootcamps/${id}`)
-        console.log(res.data.data);
 
         dispatch({
             type: GET_BOOTCAMP,
