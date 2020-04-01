@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { updatePassword } from '../../../actions/auth'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const UpdatePassword = () => {
+const UpdatePassword = ({ updatePassword }) => {
 
     const [formData, setFormData] = useState({
         currentPassword: '',
@@ -24,7 +26,14 @@ const UpdatePassword = () => {
             M.toast({ html: 'Passwords Must Match' })
             return;
         }
-        console.log(formData);
+        const newData = { currentPassword, newPassword }
+        updatePassword(newData)
+
+        setFormData({
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: ''
+        })
     }
 
     const { currentPassword, newPassword, confirmNewPassword } = formData
@@ -56,7 +65,7 @@ const UpdatePassword = () => {
 }
 
 UpdatePassword.propTypes = {
-
+    updatePassword: PropTypes.func.isRequired,
 }
 
-export default UpdatePassword
+export default connect(null, { updatePassword })(UpdatePassword)

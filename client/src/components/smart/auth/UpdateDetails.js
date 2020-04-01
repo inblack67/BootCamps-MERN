@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { updateDetails } from '../../../actions/auth'
 
-const UpdateDetails = ({ authState: { user } }) => {
+const UpdateDetails = ({ authState: { user }, updateDetails }) => {
 
     const [formData, setFormData] = useState({
         name: user.name,
@@ -19,7 +20,7 @@ const UpdateDetails = ({ authState: { user } }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log(formData);
+        updateDetails(formData)
     }
 
     const { name, email } = formData
@@ -48,11 +49,12 @@ const UpdateDetails = ({ authState: { user } }) => {
 }
 
 UpdateDetails.propTypes = {
-
+    updateDetails: PropTypes.func.isRequired,
+    authState: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    authState: state.AuthState
+    authState: state.AuthState,
 })
 
-export default connect(mapStateToProps, {  })(UpdateDetails)
+export default connect(mapStateToProps, { updateDetails })(UpdateDetails)

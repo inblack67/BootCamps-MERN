@@ -112,7 +112,9 @@ exports.updatePassword = asyncHandler(async (req,res, next) => {
 
   const user = await User.findById(req.user).select('+password');
 
-  if(!user.matchPassword(req.body.currentPassword))
+  const isMatch = await user.matchPassword(req.body.currentPassword)
+
+  if(!isMatch)
   {
     return next(new ErrorResponse('Password Incorrect', 401));
   }

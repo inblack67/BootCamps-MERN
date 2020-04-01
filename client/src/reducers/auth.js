@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, UPDATE_ACCOUNT, UPDATE_ERROR } from '../actions/types'
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, UPDATE_ACCOUNT, UPDATE_ERROR, UPDATE_PASSWORD } from '../actions/types'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import setAuthCookie from '../setAuthCookie'
 
@@ -29,6 +29,7 @@ export default (state=initialState, action) => {
 
         case USER_LOADED:
         case UPDATE_ACCOUNT:
+        case UPDATE_PASSWORD:
             return {
                 ...state,
                 user: payload,

@@ -15,6 +15,7 @@ export const DELETE_REVIEW = 'DELETE_REVIEW';
 export const ADD_REVIEW = 'ADD_REVIEW';
 
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const GET_BOOTCAMPS = 'GET_BOOTCAMPS';
 export const GET_BOOTCAMP = 'GET_BOOTCAMP';
