@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, UPDATE_ACCOUNT, UPDATE_ERROR, UPDATE_PASSWORD } from './types'
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, UPDATE_ACCOUNT, UPDATE_ERROR, UPDATE_PASSWORD, FORGOT_PASSWORD, RESET_PASSWORD, GET_RESET_TOKEN } from './types'
 import axios from 'axios'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import setAuthToken from '../setAuthCookie';
@@ -138,7 +138,100 @@ export const updatePassword = (formData) => async dispatch => {
         }
     }
 }
+
+export const forgotPassword = ({email}) => async (dispatch, getState) => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+
+        const res = await axios.post('/api/v1/auth/forgotpassword', {email}, config)
+
+        dispatch({
+            type: FORGOT_PASSWORD
+        })
+
+        if(res.data.success){
+            M.toast({ html: res.data.msg })
+            dispatch(getResetToken({email}))
+        }
+
+    } catch (err) {
+        console.error(err)
+        if(err.response !== undefined){
+            dispatch({
+                type: UPDATE_ERROR,
+                payload: err.response.data.error
+            })
+        }
+    }
+}
+
+export const resetPassword = (formData, resetToken) => async (dispatch, getState) => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+
+        const res = await axios.put(`/api/v1/auth/resetpassword/${resetToken}`, formData, config)
+        
+        dispatch({
+            type: RESET_PASSWORD,
+            payload: res.data.token
+        })
+
+        if(res.data.success){
+            M.toast({ html: 'Password Changed' })
+            dispatch(loadUser())
+        }
+
+    } catch (err) {
+        console.error(err)
+        if(err.response !== undefined){
+            dispatch({
+                type: UPDATE_ERROR,
+                payload: err.response.data.error
+            })
+        }
+    }
+}
  
+
+export const getResetToken = ({email}) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+
+        const res = await axios.post('/api/v1/auth/resetToken', { email }, config)
+
+        dispatch({
+            type: GET_RESET_TOKEN,
+            payload: res.data.resetToken
+        })
+
+    } catch (err) {
+        console.error(err)
+        if(err.response !== undefined){
+            dispatch({
+                type: UPDATE_ERROR,
+                payload: err.response.data.error
+            })
+        }
+    }
+}
 
 export const logout = () => async (dispatch) => {
     try {
@@ -149,7 +242,7 @@ export const logout = () => async (dispatch) => {
             payload: res.data.msg
         })      
     } catch (err) {
-
+        console.error(err)
     }
 }
 

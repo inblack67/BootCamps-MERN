@@ -3,6 +3,7 @@ const User = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const sendMail  = require('../utils/sendMail');
+require('colors')
 
 // desc Register a user
 // @route POST /api/v1/auth/register
@@ -136,11 +137,14 @@ exports.forgotPassword = asyncHandler(async (req,res, next) => {
 
   if(!user)
   {
-    return next(new ErrorResponse('No user with that email exists', 404));
+    return next(new ErrorResponse('Invalid Credentials', 404));
   }
 
   // GET reset token
   const resetToken = user.getResetPasswordToken();
+
+  console.log(`forgot follows`.red.bold);
+  console.log(resetToken);
 
   await user.save({ validateBeforeSave: false });
 
@@ -178,7 +182,9 @@ exports.forgotPassword = asyncHandler(async (req,res, next) => {
 exports.resetPassword = asyncHandler(async (req,res, next) => {
 
   // get hashed token from url
-  const resetPasswordToken  = crypto.createHash('sha256').update(req.params.resetToken).digest('hex');
+  const resetPasswordToken  = req.params.resetToken;
+
+  // crypto.createHash('sha256').update(req.params.resetToken).digest('hex');
   
   const user = await User.findOne({
     resetPasswordToken,
@@ -200,6 +206,30 @@ exports.resetPassword = asyncHandler(async (req,res, next) => {
   sendTokenCookie(user, 200, res);
 
 });
+
+
+// desc Send Reset Token
+// @route POST /api/v1/auth/resetToken
+// @access Public
+exports.sendResetToken = asyncHandler(
+  async (req, res, next) => {
+
+    const user = await User.findOne({ email: req.body.email })
+
+    if(!user){
+      return next(new ErrorResponse('Invalid Credentials', 400));
+    }
+
+    if(!user.resetPasswordToken){
+      return next(new ErrorResponse('Token either expired, or you did not generate it at all', 400));
+    }
+
+    console.log(`reset follows`.red.bold);
+    console.log(user.resetPasswordToken);
+
+    res.status(200).json({ success: true, resetToken: user.resetPasswordToken })
+  }
+)
 
 
 // cookies

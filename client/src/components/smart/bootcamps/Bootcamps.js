@@ -39,7 +39,7 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
                     </div>
                     <br/>
                     <div className="input-field">
-                        <input type="submit" value="Find" className='btn blue darken-2'/>
+                        <input type="submit" value="Locate" className='btn blue darken-2'/>
                     </div>
                 </form>
                 </div>
@@ -71,7 +71,7 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
                     </div>
                     <br/>
                     <div className="input-field">
-                        <input type="submit" value="Find" className='btn blue darken-2'/>
+                        <input type="submit" value="Filter" className='btn blue darken-2'/>
                     </div>
                 </form>
 

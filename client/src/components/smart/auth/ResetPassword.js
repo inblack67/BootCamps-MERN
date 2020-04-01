@@ -1,30 +1,49 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {  } from '../../../actions/auth'
+import Preloader from '../../dumb/Preloader'
+import { Redirect } from 'react-router-dom'
+import { resetPassword } from '../../../actions/auth'
 
-const ResetPassword = () => {
+const ResetPassword = ({ authState: { loading, resetToken }, resetPassword }) => {
 
-    const [email, setEmail] = useState('')
+    const [formData, setFormData] = useState({
+        password: '',
+        password2: ''
+    })
 
     const onChange = e => {
-        setEmail(e.target.value)
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log(email);
+        const newPassword = { password }
+        resetPassword(newPassword, resetToken)
     }
+
+    if(loading){
+        return <Preloader />
+    }
+
+    const { password, password2 } = formData
 
     return (
         <div className="container">
             <p className="flow-text">Reset Password</p>
             <form onSubmit={onSubmit}>
             <div className="input-field">
-                <input type="email" name="email" className='validate' onChange={onChange} value={email} required/>
-                <span className="helper-text">Registered Email</span>
+                <input type="password" name="password" className='validate' onChange={onChange} value={password} required/>
+                <span className="helper-text">New Password</span>
+            </div>
+            <div className="input-field">
+                <input type="password" name="password2" className='validate' onChange={onChange} value={password2} required/>
+                <span className="helper-text">Confirm New Password</span>
             </div>
             <br/>
             <div className="input-field">
-                <input type="submit" value="Get Reset Email" className='btn blue'/>
+                <input type="submit" value="Reset" className='btn blue'/>
             </div>
             </form>
             <br/>
@@ -33,7 +52,12 @@ const ResetPassword = () => {
 }
 
 ResetPassword.propTypes = {
-
+    authState: PropTypes.object.isRequired,
+    resetPassword: PropTypes.func.isRequired,
 }
 
-export default ResetPassword
+const mapStateToProps = state => ({
+    authState: state.AuthState
+})
+
+export default connect(mapStateToProps, { resetPassword })(ResetPassword)
