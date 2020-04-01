@@ -40,7 +40,7 @@ exports.createUser = asyncHandler(
 
 
 // @desc update user
-// @route PUT /api/v1/users/:id
+// @route PUT /api/v1/users/user/:id
 // @access Private/Admin
 exports.updateUser = asyncHandler(
   async (req,res,next) => {
@@ -63,6 +63,6 @@ exports.deleteUser = asyncHandler(
 
     await User.findByIdAndDelete(req.params.id);
 
-    res.status(200).json({ success: true, msg: 'deleted' });
+    res.status(200).json({ success: true, msg: 'User Deleted' });
 }
 );

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import Preloader from '../../dumb/Preloader'
 
-const Dashboard = ({ authState: { loading, user } }) => {
+const Dashboard = ({ authState: { loading, user, isAuthenticated } }) => {
 
     while(loading || !user){
         return <Preloader />
@@ -15,21 +15,14 @@ const Dashboard = ({ authState: { loading, user } }) => {
     return (
         
         <Fragment>
-        <div className='container center'>
-            <div className="card">
-                <div className="card-content">
-                    <span className="card-title">{name}</span>
-                    <span>
-                        <i className="material-icons prefix">email</i>
-                        <p>{email}</p>
-                    </span>
-                    <p>{role}</p>
-                <div className="card-action">
-                    <Link to='/update-details'>Manage Account</Link>
-                </div>
-                </div>
+            <div className="container">
+                <h3>Welcome {name}</h3>
+                <p className="flow-text">You are the {role}</p>
+                    { role === 'admin' && <Fragment>
+                        <Link to='/users' className='btn red left'>Get All Users</Link>
+                        <br/><br/><br/>
+                    </Fragment> }
             </div>
-        </div>
         </Fragment>
     )
 }

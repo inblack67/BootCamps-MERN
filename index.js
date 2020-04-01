@@ -15,7 +15,6 @@ const hpp = require('hpp');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
-
 // load routes
 const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');

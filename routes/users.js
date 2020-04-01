@@ -13,7 +13,8 @@ router.use(authorize('admin'));
 
 // routes
 router.route('/').get(advancedQueries(User), getUsers).post(createUser);
-router.route('/:id').get(getUser).put(updateUser).delete(deleteUser);
+router.route('/:id').get(getUser).delete(deleteUser);
+router.route('/user/:id').put(updateUser)
 
 
 module.exports = router;

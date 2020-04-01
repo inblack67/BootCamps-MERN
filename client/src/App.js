@@ -26,6 +26,10 @@ import UpdatePassword from './components/smart/auth/UpdatePassword';
 import ResetPassword from './components/smart/auth/ResetPassword';
 import ForgotPassword from './components/smart/auth/ForgotPassword';
 
+import Users from './components/smart/users/Users'
+import SingleUser from './components/smart/users/SingleUser'
+import UpdateUser from './components/smart/users/UpdateUser'
+
 function App() {
 
   useEffect(() => {
@@ -42,6 +46,9 @@ function App() {
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <PrivateRoute exact path='/update-details' component={UpdateDetails}/>
           <PrivateRoute exact path='/update-password' component={UpdatePassword}/>
+          <PrivateRoute exact path='/users' component={Users}/>
+          <PrivateRoute exact path='/users/:id' component={SingleUser}/>
+          <PrivateRoute exact path='/users/user/:id' component={UpdateUser}/>
           <Route exact path='/forgot-password' component={ForgotPassword}/>
           <Route exact path='/reset-password/:resetToken' component={ResetPassword}/>
           <Route exact path='/' component={Home}/>

@@ -5,6 +5,7 @@ import { getAllBootCamps } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
 import BootcampItem from './BootcampItem'
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { Link } from 'react-router-dom'
 
 const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) => {
 
@@ -20,6 +21,15 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
     if(loading || !bootcamps)
     {
         return <Preloader />
+    }
+
+    if(bootcamps.length === 0){
+        return <div className='container'>
+            <h3>No Bootcamps Yet.</h3>
+            <br/>
+            <Link to='/add-user' className='btn black pulse'>Add Bootcamp</Link>
+            <br/><br/>
+        </div>
     }
 
     return (

@@ -5,10 +5,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
-export const UPDATE_PROFILE = 'UPDATE_PROFILE';
-export const CLEAR_PROFILE = 'CLEAR_PROFILE';
-export const PROFILE_ERROR = 'PROFILE_ERROR';
-export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
+
 export const GET_COURSES = 'GET_COURSES';
 export const GET_REVIEWS = 'GET_REVIEWS';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
@@ -28,3 +25,11 @@ export const UPDATE_BOOTCAMP = 'UPDATE_BOOTCAMP';
 export const BOOTCAMP_ERROR = 'BOOTCAMP_ERROR';
 export const CLEAR_BOOTCAMPS = 'CLEAR_BOOTCAMPS';
 export const CLEAR_BOOTCAMP = 'CLEAR_BOOTCAMP';
+
+
+export const GET_USERS = 'GET_USERS';
+export const GET_USER = 'GET_USER';
+export const USERS_ERROR = 'USERS_ERROR';
+export const USER_ERROR = 'USER_ERROR';
+export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'DELETE_USER';
