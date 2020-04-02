@@ -16,6 +16,7 @@ const ForgotPassword = ({ getResetToken, forgotPassword, authState: { loading, r
     const onSubmit = e => {
         e.preventDefault()
         forgotPassword({email})
+        setEmail('')
     }
 
     if(!loading && resetToken){

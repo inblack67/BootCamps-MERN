@@ -15,7 +15,6 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
     const [formData, setFormData] = useState({
         name: user.name,
         email: user.email,
-        password: '',
         role: user.role
     })
 
@@ -28,6 +27,7 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
 
     const onSubmit = e => {
         e.preventDefault()
+        console.log();
         updateUser(formData, user._id)
     }
 
@@ -35,7 +35,7 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
         return <Preloader />
     }
 
-    const { name, email, password, role } = formData
+    const { name, email, role } = formData
 
     return (
         <div className="container">
@@ -49,11 +49,7 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
                     <input type="email" name='email' className='validate' onChange={onChange} value={email} required/>
                     <span className="helper-text" data-error='Required'>Email</span>
                 </div>
-                <div className="input-field">
-                    <input type="password" name='password' className='validate' onChange={onChange} value={password}/>
-                    <span className="helper-text">Password</span>
-                </div>
-
+                <br/>
                 <p>
                     <label>
                         <input type="radio" name='role' value='user' checked={ role === 'user' }  onChange={onChange}/>
@@ -69,7 +65,9 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
 
                 <div className="input-field">
                     <input type="submit" value="Update" className='btn blue'/>
+                    <Link to={`/users/${user._id}`} className='btn red secondary-content'>Go Back</Link>
                 </div>
+
                 <br/><br/>
             </form>
             <br/>

@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { deleteUser } from '../../../actions/users'
 
-const UserItem = ({ deleteUser, user, user: { name, email, role, createdAt, _id } }) => {
+const UserItem = ({ deleteUser, user: { name, email, role, createdAt, _id } }) => {
 
     const onDelete = e => {
         deleteUser(_id);

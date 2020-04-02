@@ -45,7 +45,21 @@ exports.createUser = asyncHandler(
 exports.updateUser = asyncHandler(
   async (req,res,next) => {
 
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const newData = {};
+
+    if(req.body.name !== ''){
+      newData.name = req.body.name
+    }
+
+    if(req.body.email !== ''){
+      newData.email = req.body.email
+    }
+
+    if(req.body.role !== ''){
+      newData.role = req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newData, {
       new: true,
       runValidators: true
     });

@@ -1,4 +1,4 @@
-import { GET_USERS, USERS_ERROR, GET_USER, USER_ERROR, DELETE_USER, UPDATE_USER } from './types'
+import { GET_USERS, USERS_ERROR, GET_USER, USER_ERROR, DELETE_USER, UPDATE_USER, UPDATE_ERROR } from './types'
 import axios from 'axios'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
@@ -46,7 +46,7 @@ export const getSingleUser = (id) => async dispatch => {
     
 }
 
-export const updateUser = (formData, id) => async dispatch => {
+export const updateUser = (newData, id) => async dispatch => {
 
     const config = {
         headers: {
@@ -55,26 +55,26 @@ export const updateUser = (formData, id) => async dispatch => {
     }
 
     try {
-        const res = await axios.put(`/users/user/${id}`, formData, config)
+        const res = await axios.put(`/api/v1/users/user/${id}`, newData, config)
         console.log(res.data);
-
         dispatch({
             type: UPDATE_USER,
             payload: res.data.data
         })
 
+        console.log(res.data);
 
         if(res.data.success){
-            M.toast({ html: res.data.msg })
+            M.toast({ html: 'User Updated' })
         }
 
-        dispatch(getSingleUser(id))
+        // dispatch(getSingleUser())
 
     } catch (err) {
         console.error(err)
         if(err.response !== undefined){
             dispatch({
-                type: USER_ERROR,
+                type: UPDATE_ERROR,
                 payload: err.response.data.error
             })
         }

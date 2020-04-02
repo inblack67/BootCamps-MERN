@@ -21,6 +21,10 @@ const ResetPassword = ({ authState: { loading, resetToken }, resetPassword }) =>
         e.preventDefault()
         const newPassword = { password }
         resetPassword(newPassword, resetToken)
+        setFormData({
+            password: '',
+            password2: ''
+        })
     }
 
     if(loading){

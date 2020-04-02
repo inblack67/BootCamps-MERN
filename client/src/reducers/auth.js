@@ -55,7 +55,6 @@ export default (state=initialState, action) => {
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case LOGOUT:
-        case UPDATE_ERROR:
             setAuthCookie(null)
             M.toast({ html: payload })
 
@@ -65,6 +64,13 @@ export default (state=initialState, action) => {
                 user: null,
                 isAuthenticated: false,
                 loading: false,
+                error: payload
+            }
+
+        case UPDATE_ERROR:
+            M.toast({ html: payload })
+            return {
+                ...state,
                 error: payload
             }
 
