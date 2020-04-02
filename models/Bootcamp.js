@@ -4,6 +4,7 @@ const geocoder = require('../utils/geocoder');
 require('colors');
 
 const BootcampSchema = mognoose.Schema({
+
   name: {
     type: String,
     required: [true, 'Enter a name please'],
@@ -11,12 +12,13 @@ const BootcampSchema = mognoose.Schema({
     trim: true,
     maxLength: [50, 'Name cannot be more than 50 chars']
   },
+
   slug: String,        
-  // slugify Development Center = development-center - to be used in the url (ui)
+
   description: {
     type: String,
     required: [true, 'Enter a description please'],
-    maxLength: [500, 'Description cannot be more than 50 chars']
+    maxLength: [500, 'Description cannot be more than 500 chars']
   },
   website: {
     type: String,

@@ -29,6 +29,8 @@ import ForgotPassword from './components/smart/auth/ForgotPassword';
 import Users from './components/smart/users/Users'
 import SingleUser from './components/smart/users/SingleUser'
 import UpdateUser from './components/smart/users/UpdateUser'
+import AddUser from './components/smart/users/AddUser';
+import AddBootcamp from './components/smart/bootcamps/AddBootcamp';
 
 function App() {
 
@@ -43,17 +45,26 @@ function App() {
       <div className='App'>
         <Navbar />
         <Switch>
+          {/* auth & users */}
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <PrivateRoute exact path='/update-details' component={UpdateDetails}/>
           <PrivateRoute exact path='/update-password' component={UpdatePassword}/>
           <PrivateRoute exact path='/users' component={Users}/>
           <PrivateRoute exact path='/users/:id' component={SingleUser}/>
           <PrivateRoute exact path='/users/user/:id' component={UpdateUser}/>
+          <PrivateRoute exact path='/add-user' component={AddUser}/>
           <Route exact path='/forgot-password' component={ForgotPassword}/>
           <Route exact path='/reset-password/:resetToken' component={ResetPassword}/>
+
+          {/* home */}
           <Route exact path='/' component={Home}/>
+
+          {/* bootcamps */}
           <Route exact path='/bootcamps' component={Bootcamps}/>
           <Route exact path='/bootcamps/:id' component={SingleBootcamp}/>
+          <PrivateRoute exact path='/add-bootcamp' component={AddBootcamp}/>
+
+          {/* initialState */}
           <Route exact path='/login' component={Login}/>
           <Route exact path='/register' component={Register}/>
           <Route exact path='/about' component={About}/>

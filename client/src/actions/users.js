@@ -1,4 +1,4 @@
-import { GET_USERS, USERS_ERROR, GET_USER, USER_ERROR, DELETE_USER, UPDATE_USER, UPDATE_ERROR } from './types'
+import { GET_USERS, USERS_ERROR, GET_USER, USER_ERROR, DELETE_USER, UPDATE_USER, UPDATE_ERROR, ADD_USER } from './types'
 import axios from 'axios'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
@@ -46,6 +46,40 @@ export const getSingleUser = (id) => async dispatch => {
     
 }
 
+export const addUser = (formData) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+        
+        const res = await axios.post('/api/v1/users', formData, config)
+
+        dispatch({
+            type: ADD_USER,
+            payload: res.data.data
+        })
+
+        if(res.data.success){
+            M.toast({ html: 'User Added' })
+        }
+
+        dispatch(getAllUsers())
+
+    } catch (err) {
+        if(err.response !== undefined){
+            dispatch({
+                type: USER_ERROR,
+                payload: err.response.data.error
+            })
+        }
+    }
+    
+}
+
 export const updateUser = (newData, id) => async dispatch => {
 
     const config = {
@@ -56,7 +90,7 @@ export const updateUser = (newData, id) => async dispatch => {
 
     try {
         const res = await axios.put(`/api/v1/users/user/${id}`, newData, config)
-        console.log(res.data);
+
         dispatch({
             type: UPDATE_USER,
             payload: res.data.data
@@ -84,6 +118,8 @@ export const updateUser = (newData, id) => async dispatch => {
 
 export const deleteUser = (id) => async dispatch => {
 
+    if(window.confirm('Are you sure?')){
+
     try {
         const res = await axios.delete(`/api/v1/users/${id}`)
 
@@ -106,5 +142,7 @@ export const deleteUser = (id) => async dispatch => {
             })
         }
     }
+
+}
     
 }

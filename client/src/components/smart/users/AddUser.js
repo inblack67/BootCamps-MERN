@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { registerUser } from '../../../actions/auth'
-import { Redirect } from 'react-router-dom'
+import { addUser } from '../../../actions/users'
+import { Link, withRouter } from 'react-router-dom'
 
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Register = ({ registerUser, authState: { isAuthenticated } }) => {
+const AddUser = ({ history, addUser }) => {
 
     const [formData, setFormData] = useState({
         name: '',
@@ -31,7 +31,7 @@ const Register = ({ registerUser, authState: { isAuthenticated } }) => {
 
         const newUser = { name, email, password, role }
 
-        registerUser(newUser)
+        addUser(newUser)
 
         setFormData({
             name: '',
@@ -41,10 +41,8 @@ const Register = ({ registerUser, authState: { isAuthenticated } }) => {
             role: 'user'
         })
 
-    }
+        history.push('/users')
 
-    if(isAuthenticated){
-        return <Redirect to='/dashboard' />
     }
 
     const { name, email, password, password2, role } = formData
@@ -52,7 +50,7 @@ const Register = ({ registerUser, authState: { isAuthenticated } }) => {
     return (
 
         <div className="container">
-            <p className="flow-text center">Register</p>
+            <p className="flow-text center">Add User</p>
             <form onSubmit={onSubmit}>
                 <div className="input-field">
                     <input type="text" name='name' className='validate' required value={name} onChange={onChange}/>
@@ -85,7 +83,8 @@ const Register = ({ registerUser, authState: { isAuthenticated } }) => {
                 </p>
                 <br/>
                 <div className="input-field">
-                    <input type="submit" value="Register" className='btn green'/>
+                    <input type="submit" value="Add" className='btn green'/>
+                    <Link to='/users' className='red btn secondary-content'>Back To Users</Link>
                 </div>
                 <br/>
             </form>
@@ -93,13 +92,8 @@ const Register = ({ registerUser, authState: { isAuthenticated } }) => {
     )
 }
 
-Register.propTypes = {
-    registerUser: PropTypes.func.isRequired,
-    authState: PropTypes.object.isRequired,
+AddUser.propTypes = {
+    addUser: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-    authState: state.AuthState
-})
-
-export default connect(mapStateToProps, { registerUser })(Register)
+export default connect(null, { addUser })(withRouter(AddUser))

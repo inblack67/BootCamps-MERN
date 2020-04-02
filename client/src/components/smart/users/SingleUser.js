@@ -38,7 +38,8 @@ const SingleUser = ({ match, deleteUser, getSingleUser, userState: { user, loadi
                     </span>
                     <br/><br/>
                     <span>
-                    <i className="material-icons left">account_circle</i>{role}
+                    <i className="material-icons left">account_circle</i>
+                    {role.charAt(0).toUpperCase() + role.slice(1)}
                     </span>
                     <br/><br/>
                     <span>

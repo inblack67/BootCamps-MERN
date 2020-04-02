@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateUser, getSingleUser } from '../../../actions/users'
 import Preloader from '../../dumb/Preloader'
 
-const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loading } }) => {
+const UpdateUser = ({ history, match, updateUser, getSingleUser, userState: { user, loading } }) => {
 
     useEffect(() => {
         getSingleUser(match.params.id)
@@ -29,6 +29,10 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
         e.preventDefault()
         console.log();
         updateUser(formData, user._id)
+
+        if(!loading){
+            history.push(`/users/${user._id}`)
+        }
     }
 
     if(loading || !user){
@@ -65,7 +69,6 @@ const UpdateUser = ({ match, updateUser, getSingleUser, userState: { user, loadi
 
                 <div className="input-field">
                     <input type="submit" value="Update" className='btn blue'/>
-                    <Link to={`/users/${user._id}`} className='btn red secondary-content'>Go Back</Link>
                 </div>
 
                 <br/><br/>
@@ -85,4 +88,4 @@ const mapStateToProps = state => ({
     userState: state.UserState
 })
 
-export default connect(mapStateToProps, { updateUser, getSingleUser })(UpdateUser)
+export default connect(mapStateToProps, { updateUser, getSingleUser })(withRouter(UpdateUser))

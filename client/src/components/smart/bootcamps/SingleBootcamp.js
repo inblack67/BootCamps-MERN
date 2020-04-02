@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSingleBootcamp } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { deleteBootcamp } from '../../../actions/bootcamps'
+import { withRouter } from 'react-router-dom'
 
-const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, loading } }) => {
+const SingleBootcamp = ({ history, authState, deleteBootcamp, getSingleBootcamp, match, bootcampState: { bootcamp, loading } }) => {
 
     useEffect(() => {
         getSingleBootcamp(match.params.id)
@@ -16,6 +18,11 @@ const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, l
         M.AutoInit()
     })
 
+    const onDelete = e => {
+        deleteBootcamp(bootcamp._id)
+        history.push('/bootcamps')
+    }
+
     if(loading || !bootcamp){
         return <Preloader />
     }
@@ -25,11 +32,17 @@ const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, l
     return (
         <div className="container">
             
-            <h3>{name}</h3>
+            <h3>{name}
+            { authState.isAuthenticated &&  
+                    ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <p className='secondary-content'>
+                    <a href='#!' onClick={onDelete} className='red btn'>Delete</a>
+                    </p> }
+            </h3>
 
             <p className="flow-text">{description}</p>
             <br/>
             <blockquote>Average Course Cost: <span className="red-text"><strong>${averageCost}</strong></span></blockquote>
+            
 
             <br/>
             <hr/>
@@ -52,10 +65,13 @@ const SingleBootcamp = ({ getSingleBootcamp, match, bootcampState: { bootcamp, l
 SingleBootcamp.propTypes = {
     getSingleBootcamp: PropTypes.func.isRequired,
     bootcampState: PropTypes.object.isRequired,
+    authState: PropTypes.object.isRequired,
+    deleteBootcamp: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-    bootcampState: state.BootcampState
+    bootcampState: state.BootcampState,
+    authState: state.AuthState
 })
 
-export default connect(mapStateToProps, { getSingleBootcamp })(SingleBootcamp)
+export default connect(mapStateToProps, { getSingleBootcamp, deleteBootcamp })(withRouter(SingleBootcamp))

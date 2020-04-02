@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getAllBootCamps } from '../../../actions/bootcamps'
@@ -7,7 +7,7 @@ import BootcampItem from './BootcampItem'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { Link } from 'react-router-dom'
 
-const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) => {
+const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps }, authState}) => {
 
     useEffect(() => {
         getAllBootCamps()
@@ -34,6 +34,13 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
 
     return (
         <div className='container'>
+
+            { authState.user && (authState.user.role === 'admin' || authState.user.role === 'publisher') && <Fragment>
+            <div className="fixed-action-btn">
+                <Link to='add-bootcamp' className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></Link>
+            </div>
+            </Fragment> }
+
             <div className="row">
             <div className="col m6">
                 <div className="container">
@@ -53,6 +60,7 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
                     </div>
                 </form>
                 </div>
+                <br/>
                 <div className="container">
                 <p className="flow-text">Filter</p>
                 <br/>
@@ -96,10 +104,12 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps } }) =
 Bootcamps.propTypes = {
     getAllBootCamps: PropTypes.func.isRequired,
     bootcampState: PropTypes.object.isRequired,
+    authState: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    bootcampState: state.BootcampState
+    bootcampState: state.BootcampState,
+    authState: state.AuthState
 })
 
 export default connect(mapStateToProps, { getAllBootCamps })(Bootcamps)
