@@ -118,7 +118,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
                     </div>
                     <br/>
                     <div className="input-field">
-                        <select name='careers' multiple value={careers} required onChange={onSelect} multiple>
+                        <select name='careers' multiple value={careers} required onChange={onSelect}>
                             <option defaultValue disabled>Career</option>
                             <option>Web Development</option>
                             <option>Mobile Development</option>

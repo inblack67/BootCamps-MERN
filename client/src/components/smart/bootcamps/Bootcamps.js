@@ -20,10 +20,32 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
         distance: ''
     })
 
+    const [filterData, setFilterData] = useState({
+        averageCost: 0,
+        averageRating: 0
+    })
+
     const onChange = e => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
+        })
+    }
+
+    const onFilterChange = e => {
+
+        let options = e.target.options
+        let value;
+
+        for (const i in options) {
+            if(options[i].selected){
+                value = options[i].value
+            }
+        }
+
+        setFilterData({
+            ...filterData,
+            [e.target.name]: value
         })
     }
 
@@ -32,21 +54,36 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
         getBootcampByDistance(zipcode, distance)
     }
 
+    const onFilter = e => {
+        e.preventDefault()
+        console.log(filterData);
+        getAllBootCamps(filterData)
+    }
+
     if(loading || !bootcamps)
     {
         return <Preloader />
     }
 
     if(bootcamps.length === 0){
-        return <div className='container'>
+
+        return <Fragment>
+
+        { authState.user && (authState.user.role === 'admin' || authState.user.role === 'publisher') && <Fragment>
+            <div className='container'>
             <h3>No Bootcamps Yet.</h3>
             <br/>
             <Link to='/add-user' className='btn black pulse'>Add Bootcamp</Link>
             <br/><br/>
         </div>
+        </Fragment> }
+
+        </Fragment>
+
     }
 
     const { zipcode, distance }  = formData
+    const { averageCost, averageRating } = filterData
 
     return (
         <div className='container'>
@@ -82,26 +119,26 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
                 <div className="container">
                 <p className="flow-text">Filter</p>
                 <br/>
-                <form>
+                <form onSubmit={onFilter}>
                     <div className="input-field">
-                        <select>
+                        <select onChange={onFilterChange} name='averageRating' value={averageRating}>
                             <option defaultValue disabled>Any</option>
-                            <option>9+</option>
-                            <option>8+</option>
-                            <option>7+</option>
-                            <option>6+</option>
-                            <option>5+</option>
+                            <option value='9'>9+</option>
+                            <option value='8'>8+</option>
+                            <option value='7'>7+</option>
+                            <option value='6'>6+</option>
+                            <option value='5'>5+</option>
                         </select>
                         <label>Rating</label>
                     </div>
                     <br/>
                     <div className="input-field">
-                        <select>
+                        <select onChange={onFilterChange} name='averageCost' value={averageCost}>
                             <option defaultValue disabled>Any</option>
-                            <option>$20,000</option>
-                            <option>$15,000</option>
-                            <option>$10,000</option>
-                            <option>$8,000</option>
+                            <option value='20000'>$20,000</option>
+                            <option value='15000'>$15,000</option>
+                            <option value='10000'>$10,000</option>
+                            <option value='8000'>$8,000</option>
                         </select>
                         <label>Budget</label>
                     </div>

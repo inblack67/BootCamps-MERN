@@ -2,10 +2,23 @@ import { GET_BOOTCAMPS, BOOTCAMP_ERROR, GET_BOOTCAMP, ADD_BOOTCAMP, DELETE_BOOTC
 import axios from 'axios'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-export const getAllBootCamps = () => async dispatch => {
+export const getAllBootCamps = (filterData=null) => async dispatch => {
 
     try {
-        const res = await axios('/api/v1/bootcamps')
+
+        let res;
+
+        if(!filterData){
+             res = await axios('/api/v1/bootcamps')
+        }
+
+        else if(filterData){
+            
+            const { averageCost, averageRating } = filterData
+            res = await axios(`/api/v1/bootcamps?averageCost[gte]=${averageCost}&averageRating[gte]=${averageRating}`)
+            console.log(res.data);
+
+        }
 
         dispatch({
             type: GET_BOOTCAMPS,
@@ -158,8 +171,6 @@ export const uploadBootcampPhoto = (formData, id) => async dispatch => {
             type: PHOTO_UPLOAD,
             payload: res.data.data
         })
-
-        dispatch(getSingleBootcamp(id))
         
     } catch (err) {
         console.error(err)

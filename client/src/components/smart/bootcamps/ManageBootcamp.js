@@ -33,11 +33,13 @@ const ManageBootcamp = ({ history, uploadBootcampPhoto, bootcampState: { bootcam
         history.push('/bootcamps')
     }
 
-    const { photo, name, _id, location, averageRating, description } = bootcamp
 
     if(loading || !bootcamp){
         return <Preloader />
     }
+
+
+    const { photo, name, _id, location, averageRating, description } = bootcamp
 
     return (
         <Fragment>
