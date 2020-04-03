@@ -42,8 +42,9 @@ const { zipcode, distance }  = formData
     </div>
     <div className="section white center">
       <div className="row container">
-        <h2 className="header">BootCamps</h2>
-        <Link to='/bootcamps' className='btn red'>Browse Bootcamps</Link>
+        <p className="flow-text">What's the language mode in your VS-Code at the moment?</p>
+        <Link to='/bootcamps' className='btn red pulse'>Browse Bootcamps</Link>
+        <br/>
         <p className="flow-text">Find A Bootcamp Near You</p>
       <div className='container'>
       <form onSubmit={onSubmit}>

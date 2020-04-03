@@ -13,7 +13,7 @@ const BootcampItem = ({ authState, deleteBootcamp, bootcamp: { name, _id, averag
     return (
         <div>
         <div className="col m6">
-            <div className="card">
+            <div className="card hoverable">
                 <div className="card-image waves-effect waves-block waves-light" >
                     <img className="activator responsive-img" alt='' src={`/uploads/${photo}`} />
                 </div>
@@ -26,13 +26,14 @@ const BootcampItem = ({ authState, deleteBootcamp, bootcamp: { name, _id, averag
                     ( authState.user.role === 'admin' || ( authState.user._id === user ) ) && <Fragment>
                     <a href='#!' onClick={onDelete} className='red-text secondary-content'>Delete</a>
                     </Fragment> }
-                    
                 </p>
-                <p>{location.city}
+                <br/>
+                { location.city === '' ? <p><i className="material-icons left">location_off</i><br/></p> : 
+                <p><i className="material-icons left">location_on</i>{location.city}
                     <span className="red-text secondary-content"><strong>{ averageRating > 8 &&  <Fragment>
                         { Math.round(averageRating).toString()} Rating
                     </Fragment>  }</strong></span>
-                </p>
+                </p>}
             </div>
             <div className="card-reveal">
                 <span className="card-title grey-text text-darken-4">{name}<i className="material-icons right">close</i></span>

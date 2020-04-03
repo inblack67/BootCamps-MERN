@@ -1,4 +1,4 @@
-import { GET_BOOTCAMPS, BOOTCAMP_ERROR, GET_BOOTCAMP, CLEAR_BOOTCAMP, CLEAR_BOOTCAMPS, ADD_BOOTCAMP, DELETE_BOOTCAMP, UPDATE_BOOTCAMP } from './types'
+import { GET_BOOTCAMPS, BOOTCAMP_ERROR, GET_BOOTCAMP, ADD_BOOTCAMP, DELETE_BOOTCAMP, UPDATE_BOOTCAMP, PHOTO_UPLOAD } from './types'
 import axios from 'axios'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
@@ -139,10 +139,44 @@ export const getBootcampByDistance = (zipcode, distance) => async dispatch => {
 
 }
 
+export const uploadBootcampPhoto = (formData, id) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+
+    try {
+        const res = await axios.put(`/api/v1/bootcamps/${id}/photo`, formData, config)
+
+        if(res.data.success) {
+            M.toast({ html: 'Image Uploaded' })
+        }
+
+        dispatch({
+            type: PHOTO_UPLOAD,
+            payload: res.data.data
+        })
+
+        dispatch(getSingleBootcamp(id))
+        
+    } catch (err) {
+        console.error(err)
+        if(err.response !== undefined){
+            dispatch({
+                type: BOOTCAMP_ERROR,
+                payload: err.response.data.error
+            })
+        }
+    }
+
+}
+
 
 export const deleteBootcamp = (id)  => async dispatch => {
 
-    if(window.confirm('Are you sure?')) {
+    if(window.confirm('Are you sure wanna delete this bootcamp?')) {
 
     try {
         const res = await axios.delete(`/api/v1/bootcamps/${id}`)

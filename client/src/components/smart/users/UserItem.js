@@ -14,8 +14,8 @@ const UserItem = ({ deleteUser, user: { name, email, role, createdAt, _id } }) =
     return (
         <div>
             <div className="container">
-            <div className="card black lighten-2">
-                 <div className="card-content white-text">
+            <div className="card hoverable">
+                 <div className="card-content">
                     <span className="card-title">{name}</span>
                     <br/>
                     <span><i className="material-icons left">email</i>

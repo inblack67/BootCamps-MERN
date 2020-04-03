@@ -1,4 +1,4 @@
-import { GET_BOOTCAMPS, GET_BOOTCAMP, BOOTCAMP_ERROR, CLEAR_BOOTCAMP, CLEAR_BOOTCAMPS, ADD_BOOTCAMP, DELETE_BOOTCAMP, UPDATE_BOOTCAMP } from '../actions/types'
+import { GET_BOOTCAMPS, GET_BOOTCAMP, BOOTCAMP_ERROR, CLEAR_BOOTCAMP, CLEAR_BOOTCAMPS, ADD_BOOTCAMP, DELETE_BOOTCAMP, UPDATE_BOOTCAMP, PHOTO_UPLOAD } from '../actions/types'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const initialState = {
@@ -38,6 +38,13 @@ export default (state=initialState, action) => {
                 ...state,
                 bootcamp: null,
                 bootcamps: state.bootcamps.map(b => b._id === payload.id ? payload.bootcamp : b),
+                loading: false
+            }
+
+        case PHOTO_UPLOAD:
+            return {
+                ...state,
+                bootcamp: { ...state.bootcamp, photo: payload },
                 loading: false
             }
 

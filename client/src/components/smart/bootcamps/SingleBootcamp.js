@@ -38,10 +38,13 @@ const SingleBootcamp = ({ history, authState, deleteBootcamp, getSingleBootcamp,
 
                     { authState.isAuthenticated && ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <Fragment>
             <div className="fixed-action-btn">
-            <Link to='/update-bootcamp' className="btn-floating waves-effect waves-light green btn-large"><i className="material-icons">mode_edit</i></Link>
+            <Link to='/manage-bootcamp' className="btn-floating waves-effect btn-large waves-light green"><i className="material-icons">publish</i></Link>
                 <ul>
                     <li>
                     <a href='#!' onClick={onDelete} className='btn-floating waves-effect waves-light red'><i className="material-icons">delete</i></a>
+                    </li>
+                    <li>
+                    <Link to='/update-bootcamp' className="btn-floating waves-effect waves-light blue"><i className="material-icons">mode_edit</i></Link>
                     </li>
                 </ul>
             </div>
