@@ -1,11 +1,35 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import img1 from '../../img/boot1.jpg'
 import img2 from '../../img/boot2.jpg'
 import AutoInitBot from '../smart/AutoInitBot'
+import { getBootcampByDistance } from '../../actions/bootcamps'
+import PropTypes from 'prop-types'
+import Preloader from './Preloader'
 
-const Home = () => {
+
+const Home = ({ getBootcampByDistance, history, bootcampState: { loading } }) => {
+
+  const [formData, setFormData] = useState({
+    zipcode: '',
+    distance: ''
+})
+
+const onChange = e => {
+    setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    })
+}
+
+const onSubmit = e => {
+    e.preventDefault()
+    getBootcampByDistance(zipcode, distance)
+    history.push('/bootcamps')
+}
+
+const { zipcode, distance }  = formData
 
   return (
 
@@ -22,13 +46,13 @@ const Home = () => {
         <Link to='/bootcamps' className='btn red'>Browse Bootcamps</Link>
         <p className="flow-text">Find A Bootcamp Near You</p>
       <div className='container'>
-      <form>
+      <form onSubmit={onSubmit}>
           <div className="input-field container">
-              <input type="text" className='validate' required/>
+              <input type="text" onChange={onChange} value={distance} name='distance' className='validate' required/>
               <span className="helper-text" data-error='Required'>Miles From</span>
           </div>
           <div className="input-field container">
-              <input type="text" className='validate' required/>
+              <input type="text" onChange={onChange} value={zipcode} name='zipcode' className='validate' required/>
               <span className="helper-text" data-error='Required'>Zipcode</span>
           </div>
           <div className="input-field">
@@ -46,5 +70,13 @@ const Home = () => {
   )
 }
 
+Home.propTypes = {
+  getBootcampByDistance: PropTypes.func.isRequired,
+  bootcampState: PropTypes.object.isRequired,
+}
 
-export default connect()(Home)
+const mapStateToProps = state => ({
+  bootcampState: state.BootcampState
+})
+
+export default connect(mapStateToProps, { getBootcampByDistance })(withRouter(Home))

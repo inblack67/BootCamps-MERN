@@ -31,6 +31,7 @@ import SingleUser from './components/smart/users/SingleUser'
 import UpdateUser from './components/smart/users/UpdateUser'
 import AddUser from './components/smart/users/AddUser';
 import AddBootcamp from './components/smart/bootcamps/AddBootcamp';
+import UpdateBootcamp from './components/smart/bootcamps/UpdateBootcamp';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
           <Route exact path='/bootcamps' component={Bootcamps}/>
           <Route exact path='/bootcamps/:id' component={SingleBootcamp}/>
           <PrivateRoute exact path='/add-bootcamp' component={AddBootcamp}/>
+          <PrivateRoute exact path='/update-bootcamp' component={UpdateBootcamp}/>
 
           {/* initialState */}
           <Route exact path='/login' component={Login}/>

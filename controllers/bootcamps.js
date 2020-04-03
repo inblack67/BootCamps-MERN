@@ -84,7 +84,7 @@ exports.updateBootcamp = asyncHandler(
     }
 
 
-    bootcamp = await Bootcamp.findOneAndUpdate(req.params.id, req.body, {
+    bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });

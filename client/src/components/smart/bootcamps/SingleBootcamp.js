@@ -5,7 +5,7 @@ import { getSingleBootcamp } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { deleteBootcamp } from '../../../actions/bootcamps'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 const SingleBootcamp = ({ history, authState, deleteBootcamp, getSingleBootcamp, match, bootcampState: { bootcamp, loading } }) => {
 
@@ -32,14 +32,21 @@ const SingleBootcamp = ({ history, authState, deleteBootcamp, getSingleBootcamp,
     return (
         <div className="container">
             
-            <h3>{name}
-            { authState.isAuthenticated &&  
-                    ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <p className='secondary-content'>
-                    <a href='#!' onClick={onDelete} className='red btn'>Delete</a>
-                    </p> }
-            </h3>
+            <h3>{name}</h3>
 
             <p className="flow-text">{description}</p>
+
+                    { authState.isAuthenticated && ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <Fragment>
+            <div className="fixed-action-btn">
+            <Link to='/update-bootcamp' className="btn-floating waves-effect waves-light green btn-large"><i className="material-icons">mode_edit</i></Link>
+                <ul>
+                    <li>
+                    <a href='#!' onClick={onDelete} className='btn-floating waves-effect waves-light red'><i className="material-icons">delete</i></a>
+                    </li>
+                </ul>
+            </div>
+            </Fragment> }
+
             <br/>
             <blockquote>Average Course Cost: <span className="red-text"><strong>${averageCost}</strong></span></blockquote>
             

@@ -28,7 +28,7 @@ const Users = ({ getAllUsers, userState: { users, loading, count } }) => {
 
     return (
         <Fragment>
-            <p className="flow-text center">Users</p>
+            <p className="flow-text center">Registered Users</p>
             <div className="fixed-action-btn">
             <Link to='add-user' className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></Link>
             </div>

@@ -1,22 +1,36 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getAllBootCamps } from '../../../actions/bootcamps'
+import { getAllBootCamps, getBootcampByDistance } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
 import BootcampItem from './BootcampItem'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { Link } from 'react-router-dom'
+import AutoInitBot from '../AutoInitBot'
 
-const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps }, authState}) => {
+const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { loading, bootcamps }, authState}) => {
 
     useEffect(() => {
         getAllBootCamps()
         // eslint-disable-next-line
     },[])
 
-    useEffect(() => {
-        M.AutoInit()
+    const [formData, setFormData] = useState({
+        zipcode: '',
+        distance: ''
     })
+
+    const onChange = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onSubmit = e => {
+        e.preventDefault()
+        getBootcampByDistance(zipcode, distance)
+    }
 
     if(loading || !bootcamps)
     {
@@ -32,8 +46,12 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps }, aut
         </div>
     }
 
+    const { zipcode, distance }  = formData
+
     return (
         <div className='container'>
+
+            <AutoInitBot />
 
             { authState.user && (authState.user.role === 'admin' || authState.user.role === 'publisher') && <Fragment>
             <div className="fixed-action-btn">
@@ -45,13 +63,13 @@ const Bootcamps = ({ getAllBootCamps, bootcampState: { loading, bootcamps }, aut
             <div className="col m6">
                 <div className="container">
                 <p className="flow-text">Location Matters?</p>
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className="input-field">
-                        <input type="text" className='validate' required/>
+                        <input type="text" name='distance' value={distance} onChange={onChange} className='validate' required/>
                         <span className="helper-text" data-error='Required'>Miles From</span>
                     </div>
                     <div className="input-field">
-                        <input type="text" className='validate' required/>
+                        <input type="text" name='zipcode' value={zipcode} onChange={onChange}  className='validate' required/>
                         <span className="helper-text" data-error='Required'>Zipcode</span>
                     </div>
                     <br/>
@@ -105,6 +123,7 @@ Bootcamps.propTypes = {
     getAllBootCamps: PropTypes.func.isRequired,
     bootcampState: PropTypes.object.isRequired,
     authState: PropTypes.object.isRequired,
+    getBootcampByDistance: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -112,4 +131,4 @@ const mapStateToProps = state => ({
     authState: state.AuthState
 })
 
-export default connect(mapStateToProps, { getAllBootCamps })(Bootcamps)
+export default connect(mapStateToProps, { getAllBootCamps, getBootcampByDistance })(Bootcamps)

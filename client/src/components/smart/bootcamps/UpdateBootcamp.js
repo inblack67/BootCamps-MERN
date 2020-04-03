@@ -3,23 +3,23 @@ import PropTypes from 'prop-types'
 import AutoInitBot from '../AutoInitBot'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { addBootcamp } from '../../../actions/bootcamps'
+import { updateBootcamp } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
 
-const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
+const UpdateBootcamp = ({ updateBootcamp, history, bootcampState: { bootcamp,loading } }) => {
 
     const [formData, setFormData] = useState({
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        website: '',
-        description: '',
-        careers: [],
-        housing: false,
-        jobAssistance: false,
-        jobGurantee: false,
-        acceptGi: false
+        name: bootcamp.name,
+        address: bootcamp.location.formattedAddress,
+        phone: bootcamp.phone,
+        email: bootcamp.email,
+        website: bootcamp.website,
+        description: bootcamp.description,
+        careers: bootcamp.careers,
+        housing: bootcamp.housing,
+        jobAssistance: bootcamp.jobAssistance,
+        jobGurantee: bootcamp.jobGurantee,
+        acceptGi: bootcamp.acceptGi
     })
 
     const onChange = e => {
@@ -44,10 +44,38 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
         })
     }
 
+    const onCheck  = e => {
+        if(e.target.checked){
+            setFormData({
+                ...formData,
+                [e.target.name]: true
+            })
+        }
+        else{
+            setFormData({
+                ...formData,
+                [e.target.name]: false
+            })
+        }
+    }
+
     const onSubmit = e => {
 
         e.preventDefault()
-        addBootcamp(formData)
+
+        let newData = formData
+
+        if(name !== bootcamp.name){
+            newData = { ...newData, name }
+        }
+
+        else{
+            newData.name = undefined
+        }
+
+        console.log(newData);
+
+        updateBootcamp(newData, bootcamp._id)
 
         setFormData({
             name: '',
@@ -74,8 +102,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
         <Fragment>
             <AutoInitBot />
         <div className="container">
-            <h3 className="flow-text center">Add Bootcamp</h3>
-            <p className="flow-text center">Only One Bootcamp can be added per account</p>
+            <h3 className="flow-text center">Update Bootcamp</h3>
 
             <form onSubmit={onSubmit}>
             <div className="row">
@@ -133,36 +160,34 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
 
                 <p>
                     <label>
-                        <input type="checkbox" name='housing' value={!housing} onChange={onChange}/>
+                        <input type="checkbox" name='housing' value={housing} checked={ housing === true } onChange={onCheck}/>
                         <span>Housing?</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" name='jobAssistance' value={!jobAssistance}  onChange={onChange} />
+                        <input type="checkbox" name='jobAssistance' value={jobAssistance} checked={ jobAssistance === true }  onChange={onCheck} />
                         <span>Job Assistance?</span>
                     </label>
                 </p>
 
                 <p>
                     <label>
-                        <input type="checkbox" name='jobGurantee' value={!jobGurantee}  onChange={onChange} />
+                        <input type="checkbox" name='jobGurantee' value={jobGurantee} checked={ jobGurantee === true }  onChange={onCheck} />
                         <span>Job Gurantee?</span>
                     </label>
                 </p>
 
                 <p>
                     <label>
-                        <input type="checkbox" name='acceptGi' value={!acceptGi}  onChange={onChange} />
+                        <input type="checkbox" name='acceptGi' value={acceptGi} checked={ acceptGi === true }  onChange={onCheck} />
                         <span>Accept GI Bill?</span>
                     </label>
                 </p>
 
-                <span className="helper-text green-text"><strong>After you add the bootcamp, you can add the specific courses offered</strong></span>
-
                 </div>
             </div>
-            <input type="submit" value="Add Bootcamp" className='btn green pulse'/>
+            <input type="submit" value="Update Bootcamp" className='btn green pulse'/>
             <br/><br/>
             </form>
 
@@ -171,8 +196,8 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
     )
 }
 
-AddBootcamp.propTypes = {
-    addBootcamp: PropTypes.func.isRequired,
+UpdateBootcamp.propTypes = {
+    updateBootcamp: PropTypes.func.isRequired,
     bootcampState: PropTypes.object.isRequired,
 }
 
@@ -180,4 +205,4 @@ const mapStateToProps = state => ({
     bootcampState: state.BootcampState
 })
 
-export default connect(mapStateToProps, { addBootcamp })(withRouter(AddBootcamp))
+export default connect(mapStateToProps, { updateBootcamp })(withRouter(UpdateBootcamp))
