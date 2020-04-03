@@ -6,7 +6,7 @@ import { getSingleUser, deleteUser } from '../../../actions/users'
 import Moment from 'react-moment'
 import { Link, Redirect } from 'react-router-dom'
 
-const SingleUser = ({ match, deleteUser, getSingleUser, userState: { user, loading } }) => {
+const SingleUser = ({ match, getSingleUser, userState: { user, loading } }) => {
 
     useEffect(() => {
         getSingleUser(match.params.id)
@@ -15,10 +15,6 @@ const SingleUser = ({ match, deleteUser, getSingleUser, userState: { user, loadi
 
     if(loading || !user){
         return <Preloader />
-    }
-
-    const onDelete = e => {
-        deleteUser(match.params.id)
     }
 
     if(!user && !loading){

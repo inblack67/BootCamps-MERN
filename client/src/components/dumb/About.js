@@ -2,9 +2,11 @@ import React from 'react'
 
 const About = () => {
     return (
-        <div className='container'>
+        <div className='container' style={{'marginBottom': '15rem'}}>
             <h1>About</h1>
-            <p className="flow-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo, molestiae.</p>
+            <p className="flow-text">
+                For JavaScript Devs, By JavaScript Devs
+            </p>
             <hr/>
             <strong>
                 BootCamps 2020 &copy; All Rights Reserved

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { logout } from '../../actions/auth'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Preloader from './Preloader'
+import userImg from '../../img/anonymous.jpg'
 
 const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
 
@@ -12,31 +13,49 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
     }
 
     const guestLinks = (
-        <ul className="right hide-on-small-only">
+        <Fragment>
         <li><Link to="/bootcamps">Bootcamps</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
         <li><Link to="/about">About</Link></li>
-        </ul>
+        </Fragment>
       )
     
       const authLinks = (
-        <ul className="right hide-on-small-only">
+          <Fragment>
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/bootcamps">Bootcamps</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><a href="#!" onClick={onLogOut}>Logout</a></li>
-      </ul>
+          </Fragment>
       )
 
     return (
-        <nav className='blue'>
+        <nav className='red'>
             <div className="nav-wrapper">
-                <Link to="/" className="brand-logo center"><i className="prefix fab fa-react"></i>BootCamps</Link>
-                <ul className="right">
+            <a href="#!" className='left sidenav-trigger' data-target='mobile-nav'><i className="material-icons">menu</i></a>
+                <Link to="/" className="brand-logo center"><i className="left material-icons">devices
+</i>BootCamps</Link>
+                <ul className="right hide-on-small-only">
                     { !loading && isAuthenticated ? authLinks : guestLinks }
                 </ul>
             </div>
+            <ul id="mobile-nav" className="sidenav">
+        
+        <li>
+        <div class="user-view">
+        <div class="background grey darken-4">
+        </div>
+        <Link to="/"><img class="circle" src={userImg} /></Link>
+        <Link to="/"><span class="white-text name">Aman Bhardwaj</span></Link>
+        </div>
+        </li>
+
+        <li><a href="https://github.com/inblack67" target="_blank" rel='noopener noreferrer' className='center'><i className="fab fa-github fa-3x red-text"></i></a></li>
+        <li><div className="divider"></div></li>
+        <li><a href='#!' className="subheader">Where'd you wanna go?</a></li>
+        { isAuthenticated ? authLinks : guestLinks}
+      </ul>
         </nav>
     )
 }

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import Preloader from './Preloader'
 
 
-const Home = ({ getBootcampByDistance, history, bootcampState: { loading } }) => {
+const Home = ({ getBootcampByDistance, history }) => {
 
   const [formData, setFormData] = useState({
     zipcode: '',
@@ -57,7 +57,7 @@ const { zipcode, distance }  = formData
               <span className="helper-text" data-error='Required'>Zipcode</span>
           </div>
           <div className="input-field">
-              <input type="submit" value="Find Bootcamp" className='blue darken-2 btn'/>
+              <input type="submit" value="Find Bootcamp" className='black btn'/>
           </div>
       </form>
     </div>

@@ -11,7 +11,6 @@ const ManageBootcamp = ({ history, uploadBootcampPhoto, bootcampState: { bootcam
 
     const [file, setFile] = useState('')
     const [fileName, setFileName] = useState('Image')
-    const [uploadedFile, setUploadedFile] = useState('')
 
     const onDelete = e => {
         deleteBootcamp(_id)
@@ -73,7 +72,7 @@ const ManageBootcamp = ({ history, uploadBootcampPhoto, bootcampState: { bootcam
                 { location.city === '' ? <p><i className="material-icons left">location_off</i><br/></p> : 
                 <p><i className="material-icons left">location_on</i>{location.city}
                     <span className="red-text secondary-content"><strong>
-                        {Math.round(averageRating).toString()}
+                        {Math.round(averageRating).toString()} Rating
                         </strong></span>
                 </p>}
             </div>
@@ -81,14 +80,14 @@ const ManageBootcamp = ({ history, uploadBootcampPhoto, bootcampState: { bootcam
                 <span className="card-title grey-text text-darken-4">{name}<i className="material-icons right">close</i></span>
             <p>{description}</p>
             <br/>
-            <Link to={`/bootcamps/${_id}`} className='btn blue pulse'>Explore</Link>
+            <Link to={`/bootcamps/${_id}`} className='btn black pulse'>Explore</Link>
             </div>
             </div>
             </div>
             <br/>
             <form onSubmit={onSubmit}>
                 <div className="file-field input-field">
-                        <div className="btn green">
+                        <div className="btn red">
                             <span>{fileName}</span>
                             <input type="file" name='file' onChange={onChange} />
                         </div>
@@ -99,7 +98,7 @@ const ManageBootcamp = ({ history, uploadBootcampPhoto, bootcampState: { bootcam
                         <br/>
                 </div>
                 <div className="input-field center">
-                    <input type="submit" value="Upload" className='btn blue'/>
+                    <input type="submit" value="Upload" className='btn black'/>
                 </div>
             </form>
 

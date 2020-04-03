@@ -27,46 +27,109 @@ const SingleBootcamp = ({ history, authState, deleteBootcamp, getSingleBootcamp,
         return <Preloader />
     }
 
-    const { name, description, averageCost, photo, averageRating, location, careers } = bootcamp
+    const { name, _id, description, averageCost, photo, averageRating, location, careers, housing, jobAssistance, jobGurantee, acceptGi, website } = bootcamp
 
     return (
         <div className="container">
-            
-            <h3>{name}</h3>
+            <br/>
 
-            <p className="flow-text">{description}</p>
+            <div className="card hoverable">
+                <div className="card-image waves-effect waves-block waves-light" >
+                    <img className="activator responsive-img" alt='' src={`/uploads/${photo}`} />
+                </div>
+            <div className="card-content">
+                <span className="card-title activator grey-text text-darken-4">{name}<i className="material-icons right">more_vert</i></span>
+                <br/>
+                { authState.isAuthenticated && ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <Fragment>
+                <p>
+                    <Link to={`/update-bootcamp`} className='green-text'>Update Details</Link>
+                    <a href='#!' onClick={onDelete} className='red-text secondary-content'>Delete</a>
+                </p>
+                <br/>
+                <p>
+                    <Link to={`/manage-bootcamp`} className='blue-text'>Manage Bootcamp</Link>
+                </p>
+                </Fragment> }
+
+                <br/>
+                { location.city === '' ? <p><i className="material-icons left">location_off</i><br/></p> : 
+                <p><i className="material-icons left">location_on</i>{location.city}
+                    <span className="red-text secondary-content"><strong>
+                        {Math.round(averageRating).toString()} Rating
+                        </strong></span>
+                </p>}
+            </div>
+            <div className="card-reveal">
+                <span className="card-title grey-text text-darken-4">{name}<i className="material-icons right">close</i></span>
+            <p>{description}</p>
+            <br/>
+
+            <blockquote>Average Course Cost: <span className="red-text"><strong>${averageCost}</strong></span></blockquote>
+
+            <br/>
+
+            <p>
+                { housing ? <i className="material-icons left">check</i> : <i className="material-icons left">close</i> }
+                Housing
+            </p>
+
+            <p>
+                { jobAssistance ? <i className="material-icons left">check</i> : <i className="material-icons left">close</i> }
+                Job Assistance
+            </p>
+
+            <p>
+                { jobGurantee ? <i className="material-icons left">check</i> : <i className="material-icons left">close</i> }
+                Job Gurantee
+            </p>
+
+            <p>
+                { acceptGi ? <i className="material-icons left">check</i> : <i className="material-icons left">close</i> }
+                Accepts Gi Bill
+            </p>
+
+            <br/>
+
+            <h6>Careers</h6>
+            <p>
+            {  careers.map(career => (
+            <li key={career} className='collection-item'>
+                {career}
+            </li>
+            ))}
+            </p>
+
+            <br/>
+
+            <p>
+            <a href={website} target='_blank' rel='noopener noreferrer' className='btn red'>Visit Website</a>
+            <Link to='/reviews' className='btn black secondary-content'>Reviews</Link>
+            </p>
+
+
+            </div>
+            </div>
 
                     { authState.isAuthenticated && ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <Fragment>
             <div className="fixed-action-btn">
-            <Link to='/manage-bootcamp' className="btn-floating waves-effect btn-large waves-light green"><i className="material-icons">publish</i></Link>
+            <Link to='/manage-bootcamp' className="btn-floating waves-effect btn-large waves-light red"><i className="material-icons">publish</i></Link>
                 <ul>
                     <li>
                     <a href='#!' onClick={onDelete} className='btn-floating waves-effect waves-light red'><i className="material-icons">delete</i></a>
                     </li>
                     <li>
-                    <Link to='/update-bootcamp' className="btn-floating waves-effect waves-light blue"><i className="material-icons">mode_edit</i></Link>
+                    <Link to='/update-bootcamp' className="btn-floating waves-effect waves-light black"><i className="material-icons">mode_edit</i></Link>
                     </li>
                 </ul>
             </div>
             </Fragment> }
-
-            <br/>
-            <blockquote>Average Course Cost: <span className="red-text"><strong>${averageCost}</strong></span></blockquote>
             
 
             <br/>
             <hr/>
-            <h4>Careers</h4>
             <br/>
 
-            <ul className="collapsible">
-            {  careers.map(career => (
-            <li key={career}>
-                <div className="collapsible-header"><i className="material-icons">whatshot</i>{career}</div>
-                <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            ))}
-            </ul>
+            <br/>
 
         </div>
     )

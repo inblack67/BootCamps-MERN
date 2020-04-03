@@ -111,7 +111,7 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
                     </div>
                     <br/>
                     <div className="input-field">
-                        <input type="submit" value="Locate" className='btn blue darken-2'/>
+                        <input type="submit" value="Locate" className='btn black darken-2'/>
                     </div>
                 </form>
                 </div>
@@ -144,7 +144,7 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
                     </div>
                     <br/>
                     <div className="input-field">
-                        <input type="submit" value="Filter" className='btn blue darken-2'/>
+                        <input type="submit" value="Filter" className='btn black darken-2'/>
                     </div>
                 </form>
 

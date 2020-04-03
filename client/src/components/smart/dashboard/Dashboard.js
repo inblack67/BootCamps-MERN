@@ -15,12 +15,12 @@ const Dashboard = ({ authState: { loading, user, isAuthenticated } }) => {
     return (
         
         <Fragment>
-            <div className="container">
+            <div className="container" style={{'marginBottom': '15rem'}}>
                 <h3>Welcome {name}</h3>
                 <p className="flow-text">You are the {role}</p>
 
                 <Fragment>
-                        <Link to='/bootcamps' className='btn blue'>Get All Bootcamps</Link>
+                        <Link to='/bootcamps' className='btn black'>Get All Bootcamps</Link>
 
 
                     <Link to='/users' className='btn red secondary-content'>Get All Users</Link>
