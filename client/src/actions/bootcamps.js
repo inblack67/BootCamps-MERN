@@ -171,6 +171,8 @@ export const uploadBootcampPhoto = (formData, id) => async dispatch => {
             type: PHOTO_UPLOAD,
             payload: res.data.data
         })
+
+        dispatch(getAllBootCamps())
         
     } catch (err) {
         console.error(err)

@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { addBootcamp } from '../../../actions/bootcamps'
 import Preloader from '../../dumb/Preloader'
+import M from 'materialize-css/dist/js/materialize.min.js';
 
-const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
+const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading, bootcamps }, authState: { user } }) => {
 
     const [formData, setFormData] = useState({
         name: '',
@@ -18,7 +19,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
         careers: [],
         housing: false,
         jobAssistance: false,
-        jobGurantee: false,
+        jobGuarantee: false,
         acceptGi: false
     })
 
@@ -47,6 +48,12 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
     const onSubmit = e => {
 
         e.preventDefault()
+
+        if(careers.length === 0){
+            M.toast({ html: 'Select Some Careers' })
+            return;
+        }
+
         addBootcamp(formData)
 
         setFormData({
@@ -59,7 +66,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
             careers: [],
             housing: false,
             jobAssistance: false,
-            jobGurantee: false,
+            jobGuarantee: false,
             acceptGi: false
         })
 
@@ -68,7 +75,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
         }
     }
 
-    const { name, address, phone, email, website, description, careers, housing, jobAssistance, jobGurantee,acceptGi } = formData
+    const { name, address, phone, email, website, description, careers, housing, jobAssistance, jobGuarantee,acceptGi } = formData
 
     return (
         <Fragment>
@@ -113,7 +120,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
                     <h5>Other Specifications</h5>
 
                     <div className="input-field">
-                        <textarea name='description' value={description} onChange={onChange} type="url" className='validate materialize-textarea' required maxLength='500'/>
+                        <textarea name='description' value={description} onChange={onChange} type='text' className='validate materialize-textarea' required maxLength='500'/>
                         <span className="helper-text" data-error='Required'>Description</span>
                     </div>
                     <br/>
@@ -146,7 +153,7 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
 
                 <p>
                     <label>
-                        <input type="checkbox" name='jobGurantee' value={!jobGurantee}  onChange={onChange} />
+                        <input type="checkbox" name='jobGuarantee' value={!jobGuarantee}  onChange={onChange} />
                         <span>Job Gurantee?</span>
                     </label>
                 </p>
@@ -174,10 +181,12 @@ const AddBootcamp = ({ addBootcamp, history, bootcampState: { loading } }) => {
 AddBootcamp.propTypes = {
     addBootcamp: PropTypes.func.isRequired,
     bootcampState: PropTypes.object.isRequired,
+    authState: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    bootcampState: state.BootcampState
+    bootcampState: state.BootcampState,
+    authState: state.AuthState
 })
 
 export default connect(mapStateToProps, { addBootcamp })(withRouter(AddBootcamp))

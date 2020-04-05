@@ -7,11 +7,20 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 
-// COURSES/REVIEWS
+// COURSES
 export const GET_COURSES = 'GET_COURSES';
+export const GET_COURSE = 'GET_COURSE';
+export const ADD_COURSE = 'ADD_COURSE';
+export const UPDATE_COURSE = 'UPDATE_COURSE';
+export const DELETE_COURSE = 'DELETE_COURSE';
+export const COURSE_ERROR = 'COURSE_ERROR';
+
+// REVIEWS
 export const GET_REVIEWS = 'GET_REVIEWS';
-export const DELETE_REVIEW = 'DELETE_REVIEW';
+export const GET_REVIEW = 'GET_REVIEW';
 export const ADD_REVIEW = 'ADD_REVIEW';
+export const UPDATE_REVIEW = 'UPDATE_REVIEW';
+export const DELETE_REVIEW = 'DELETE_REVIEW';
 
 // AUTH
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';

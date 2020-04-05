@@ -5,27 +5,27 @@ const CourseSchema = mongoose.Schema({
   title: {
     type: String,
     trim: true,
-    // required: [true, 'Add a course title']
+    required: [true, 'Add a course title']
   },
 
-  desciption: {
+  description: {
     type: String,
-    // required: [true, 'Add a description']
+    required: [true, 'Add a description']
   },
 
   weeks: {
     type: String,
-    // required: [true, 'Add number of weeks']
+    required: [true, 'Add number of weeks']
   },
 
   tuition: {
     type: Number,
-    // required: [true, 'Add a tuition cost']
+    required: [true, 'Add a tuition cost']
   },
 
   minimumSkill: {
     type: String,
-    // required: [true, 'Add minimum level of skill'],
+    required: [true, 'Add minimum level of skill'],
     enum: ['beginner', 'intermediate', 'advanced']
   },
 
@@ -42,13 +42,13 @@ const CourseSchema = mongoose.Schema({
   bootcamp: {
     type: mongoose.Schema.ObjectId,
     ref: 'Bootcamp',
-    // required: true
+    required: true
   },
 
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    // required: true
+    required: true
   }
 
 });

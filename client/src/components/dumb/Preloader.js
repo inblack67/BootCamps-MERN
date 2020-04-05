@@ -4,7 +4,7 @@ const Preloader = () => {
     return (
       <div className="container center" style={{'marginTop' : '10rem'}}>
                 <div className="preloader-wrapper big active">
-        <div className="spinner-layer spinner-blue-only">
+        <div className="spinner-layer spinner-red-only">
           <div className="circle-clipper left">
             <div className="circle"></div>
           </div><div className="gap-patch">

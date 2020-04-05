@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom'
 import AutoInitBot from '../AutoInitBot'
 
 const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { loading, bootcamps }, authState}) => {
-
     useEffect(() => {
         getAllBootCamps()
         // eslint-disable-next-line
@@ -82,6 +81,14 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
 
     }
 
+    const isEligible = () => {
+        const res = bootcamps.filter(b => b.user === authState.user._id)
+        if(res.length === 0){
+            return true
+        }
+        else return false
+    }
+
     const { zipcode, distance }  = formData
     const { averageCost, averageRating } = filterData
 
@@ -90,9 +97,11 @@ const Bootcamps = ({ getBootcampByDistance, getAllBootCamps, bootcampState: { lo
 
             <AutoInitBot />
 
-            { authState.user && (authState.user.role === 'admin' || authState.user.role === 'publisher') && <Fragment>
+            { authState.user && (authState.user.role === 'admin' || (
+                authState.user.role === 'publisher' && isEligible()
+            )) && <Fragment>
             <div className="fixed-action-btn">
-                <Link to='add-bootcamp' className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></Link>
+                <Link to='/add-bootcamp' className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></Link>
             </div>
             </Fragment> }
 

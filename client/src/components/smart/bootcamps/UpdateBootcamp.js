@@ -18,7 +18,7 @@ const UpdateBootcamp = ({ updateBootcamp, history, bootcampState: { bootcamp,loa
         careers: bootcamp.careers,
         housing: bootcamp.housing,
         jobAssistance: bootcamp.jobAssistance,
-        jobGurantee: bootcamp.jobGurantee,
+        jobGuarantee: bootcamp.jobGuarantee,
         acceptGi: bootcamp.acceptGi
     })
 
@@ -51,7 +51,7 @@ const UpdateBootcamp = ({ updateBootcamp, history, bootcampState: { bootcamp,loa
                 [e.target.name]: true
             })
         }
-        else{
+        else if(!e.target.checked){
             setFormData({
                 ...formData,
                 [e.target.name]: false
@@ -87,7 +87,7 @@ const UpdateBootcamp = ({ updateBootcamp, history, bootcampState: { bootcamp,loa
             careers: [],
             housing: false,
             jobAssistance: false,
-            jobGurantee: false,
+            jobGuarantee: false,
             acceptGi: false
         })
 
@@ -96,7 +96,7 @@ const UpdateBootcamp = ({ updateBootcamp, history, bootcampState: { bootcamp,loa
         }
     }
 
-    const { name, address, phone, email, website, description, careers, housing, jobAssistance, jobGurantee,acceptGi } = formData
+    const { name, address, phone, email, website, description, careers, housing, jobAssistance, jobGuarantee,acceptGi } = formData
 
     return (
         <Fragment>
@@ -173,7 +173,7 @@ const UpdateBootcamp = ({ updateBootcamp, history, bootcampState: { bootcamp,loa
 
                 <p>
                     <label>
-                        <input type="checkbox" name='jobGurantee' value={jobGurantee} checked={ jobGurantee === true }  onChange={onCheck} />
+                        <input type="checkbox" name='jobGuarantee' value={jobGuarantee} checked={ jobGuarantee === true }  onChange={onCheck} />
                         <span>Job Gurantee?</span>
                     </label>
                 </p>

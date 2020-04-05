@@ -17,13 +17,11 @@ const Dashboard = ({ authState: { loading, user, isAuthenticated } }) => {
         <Fragment>
             <div className="container" style={{'marginBottom': '15rem'}}>
                 <h3>Welcome {name}</h3>
-                <p className="flow-text">You are the {role}</p>
+                <p className="flow-text">You are the {role.charAt(0).toUpperCase() + role.slice(1)}</p>
 
                 <Fragment>
                         <Link to='/bootcamps' className='btn black'>Get All Bootcamps</Link>
-
-
-                    <Link to='/users' className='btn red secondary-content'>Get All Users</Link>
+                    { role === 'admin' && <Link to='/users' className='btn red secondary-content'>Get All Users</Link> }
                 </Fragment>
                 <br/><br/>
             </div>

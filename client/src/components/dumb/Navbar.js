@@ -15,6 +15,7 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
     const guestLinks = (
         <Fragment>
         <li><Link to="/bootcamps">Bootcamps</Link></li>
+        <li><Link to="/courses">Courses</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
         <li><Link to="/about">About</Link></li>
@@ -25,6 +26,7 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
           <Fragment>
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/bootcamps">Bootcamps</Link></li>
+          <li><Link to="/courses">Courses</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><a href="#!" onClick={onLogOut}>Logout</a></li>
           </Fragment>
@@ -33,21 +35,21 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
     return (
         <nav className='red'>
             <div className="nav-wrapper">
-            <a href="#!" className='left sidenav-trigger' data-target='mobile-nav'><i className="material-icons">menu</i></a>
+            <a href="#!" className='left sidenav-trigger show-on-large' data-target='mobile-nav'><i className="material-icons">menu</i></a>
                 <Link to="/" className="brand-logo center"><i className="left material-icons">devices
-</i>BootCamps</Link>
-                <ul className="right hide-on-small-only">
+                </i>BootCamps</Link>
+                <ul className="right hide-on-med-and-down">
                     { !loading && isAuthenticated ? authLinks : guestLinks }
                 </ul>
             </div>
-            <ul id="mobile-nav" className="sidenav">
-        
+
+    <ul id="mobile-nav" className='sidenav'>
         <li>
-        <div class="user-view">
-        <div class="background grey darken-4">
+        <div className="user-view">
+        <div className="background grey darken-4">
         </div>
-        <Link to="/"><img class="circle" src={userImg} /></Link>
-        <Link to="/"><span class="white-text name">Aman Bhardwaj</span></Link>
+        <Link to="/"><img className="circle" src={userImg} /></Link>
+        <Link to="/"><span className="white-text name">Aman Bhardwaj</span></Link>
         </div>
         </li>
 
@@ -55,7 +57,7 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
         <li><div className="divider"></div></li>
         <li><a href='#!' className="subheader">Where'd you wanna go?</a></li>
         { isAuthenticated ? authLinks : guestLinks}
-      </ul>
+    </ul>
         </nav>
     )
 }

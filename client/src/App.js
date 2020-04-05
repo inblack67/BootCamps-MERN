@@ -33,6 +33,12 @@ import AddUser from './components/smart/users/AddUser';
 import AddBootcamp from './components/smart/bootcamps/AddBootcamp';
 import UpdateBootcamp from './components/smart/bootcamps/UpdateBootcamp';
 import ManageBootcamp from './components/smart/bootcamps/ManageBootcamp';
+import ManageCourses from './components/smart/courses/ManageCourses';
+import Courses from './components/smart/courses/Courses';
+import CoursesByBootcamp from './components/smart/courses/CoursesByBootcamp';
+import AddCourse from './components/smart/courses/AddCourse';
+import UpdateCourse from './components/smart/courses/UpdateCourse';
+import SingleCourse from './components/smart/courses/SingleCourse';
 
 function App() {
 
@@ -67,6 +73,13 @@ function App() {
           <PrivateRoute exact path='/add-bootcamp' component={AddBootcamp}/>
           <PrivateRoute exact path='/update-bootcamp' component={UpdateBootcamp}/>
           <PrivateRoute exact path='/manage-bootcamp' component={ManageBootcamp}/>
+
+          {/* courses */}
+          <Route exact path='/courses' component={Courses}/>
+          <Route exact path='/bootcamps/:id/courses' component={CoursesByBootcamp}/>
+          <Route exact path='/courses/:id' component={SingleCourse}/>
+          <PrivateRoute exact path='/add-course' component={AddCourse}/>
+          <PrivateRoute exact path='/update-course/:id' component={UpdateCourse}/>
 
           {/* initialState */}
           <Route exact path='/login' component={Login}/>

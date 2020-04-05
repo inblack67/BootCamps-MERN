@@ -5,7 +5,7 @@ const About = () => {
         <div className='container' style={{'marginBottom': '15rem'}}>
             <h1>About</h1>
             <p className="flow-text">
-                For JavaScript Devs, By JavaScript Devs
+                For JavaScript Devs, By JavaScript Devs.
             </p>
             <hr/>
             <strong>
