@@ -39,6 +39,11 @@ import CoursesByBootcamp from './components/smart/courses/CoursesByBootcamp';
 import AddCourse from './components/smart/courses/AddCourse';
 import UpdateCourse from './components/smart/courses/UpdateCourse';
 import SingleCourse from './components/smart/courses/SingleCourse';
+import Reviews from './components/smart/reviews/Reviews';
+import ReviewsByBootcamp from './components/smart/reviews/ReviewsByBootcamp';
+import SingleReview from './components/smart/reviews/SingleReview';
+import AddReview from './components/smart/reviews/AddReview';
+import UpdateReview from './components/smart/reviews/UpdateReview';
 
 function App() {
 
@@ -80,6 +85,12 @@ function App() {
           <Route exact path='/courses/:id' component={SingleCourse}/>
           <PrivateRoute exact path='/add-course' component={AddCourse}/>
           <PrivateRoute exact path='/update-course/:id' component={UpdateCourse}/>
+
+          <Route exact path='/reviews' component={Reviews}/>
+          <Route exact path='/bootcamps/:id/reviews' component={ReviewsByBootcamp}/>
+          <Route exact path='/reviews/:id' component={SingleReview}/>
+          <PrivateRoute exact path='/add-review' component={AddReview}/>
+          <PrivateRoute exact path='/update-review/:id' component={UpdateReview}/>
 
           {/* initialState */}
           <Route exact path='/login' component={Login}/>

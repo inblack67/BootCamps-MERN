@@ -118,7 +118,7 @@ export const updateUser = (newData, id) => async dispatch => {
 
 export const deleteUser = (id) => async dispatch => {
 
-    if(window.confirm('Are you sure?')){
+    if(window.confirm('Are you sure wanna delete this user?')){
 
     try {
         const res = await axios.delete(`/api/v1/users/${id}`)

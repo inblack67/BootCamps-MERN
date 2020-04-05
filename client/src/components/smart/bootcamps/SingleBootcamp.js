@@ -43,6 +43,18 @@ const SingleBootcamp = ({ courseState, courseState: { courses } , getCoursesByBo
             <div className="card-content">
                 <span className="card-title activator grey-text text-darken-4">{name}<i className="material-icons right">more_vert</i></span>
                 <br/>
+
+                <p>
+                    <Link to={`/bootcamps/${_id}/reviews`} className='grey-text'>Reviews</Link>
+                </p>
+
+                <br/>
+
+                <p>
+                    <Link to={`/bootcamps/${_id}/courses`}>Courses</Link>
+                </p>
+                <br/>
+
                 { authState.isAuthenticated && ( authState.user.role === 'admin' || ( authState.user._id === bootcamp.user ) ) && <Fragment>
                 <p>
                     <Link to={`/update-bootcamp`} className='green-text'>Update Details</Link>
@@ -51,10 +63,6 @@ const SingleBootcamp = ({ courseState, courseState: { courses } , getCoursesByBo
                 <br/>
                 <p>
                     <Link to={`/manage-bootcamp`} className='red-text'>Manage Bootcamp</Link>
-                </p>
-                <br/>
-                <p>
-                    <Link to={`/bootcamps/${_id}/courses`}>Courses</Link>
                 </p>
 
                 <br/>
@@ -114,13 +122,9 @@ const SingleBootcamp = ({ courseState, courseState: { courses } , getCoursesByBo
             <br/>
 
             <p>
-            <a href={website} target='_blank' rel='noopener noreferrer' className='btn red secondary-content'>Visit Website</a>
+            <a href={website} target='_blank' rel='noopener noreferrer' className='btn red'>Visit Website</a>
             </p>
-
-            <p>
-            <Link to='/reviews' className='btn green'>Reviews</Link>
-            </p>
-
+            
             </div>
             </div>
 

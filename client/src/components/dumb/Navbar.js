@@ -16,6 +16,7 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
         <Fragment>
         <li><Link to="/bootcamps">Bootcamps</Link></li>
         <li><Link to="/courses">Courses</Link></li>
+        <li><Link to="/reviews">Reviews</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
         <li><Link to="/about">About</Link></li>
@@ -27,6 +28,7 @@ const Navbar = ({ logout, authState: { loading, isAuthenticated } }) => {
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/bootcamps">Bootcamps</Link></li>
           <li><Link to="/courses">Courses</Link></li>
+          <li><Link to="/reviews">Reviews</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><a href="#!" onClick={onLogOut}>Logout</a></li>
           </Fragment>

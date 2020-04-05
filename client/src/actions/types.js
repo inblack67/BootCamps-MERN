@@ -21,6 +21,7 @@ export const GET_REVIEW = 'GET_REVIEW';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const UPDATE_REVIEW = 'UPDATE_REVIEW';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
+export const REVIEW_ERROR = 'REVIEW_ERROR';
 
 // AUTH
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
